@@ -52,13 +52,12 @@ func uploadFile(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Successfully Uploaded File\n")
 }
 
-func setupRoutes() {
-	server := http.Server{
-		Addr: "127.0.0.1:8480",
-	}
-	http.HandleFunc("/upload", uploadFile)
-	server.ListenAndServe()
-}
+//func setupRoutes() {
+//	server := http.Server{
+//	Addr: "127.0.0.1:8480",
+//	}
+//	server.ListenAndServe()
+//}
 func handler(w http.ResponseWriter, r *http.Request) {
 	myTemplate.ExecuteTemplate(w, "index.html", nil)
 }
@@ -74,8 +73,10 @@ func main() {
 	fmt.Println("Hello World")
 	myTemplate = template.Must(template.ParseGlob("index.html"))
 	http.HandleFunc("/", handler)
-	http.ListenAndServe("port", nil)
-	setupRoutes()
+	http.ListenAndServe(":"+port, nil)
+	http.HandleFunc("/upload", uploadFile)
+
+	//setupRoutes()
 
 	f, err := os.Open("image.png") //opening a file with os package
 	if err != nil {
