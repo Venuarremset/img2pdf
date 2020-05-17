@@ -73,8 +73,8 @@ func main() {
 	fmt.Println("Hello World")
 	myTemplate = template.Must(template.ParseGlob("index.html"))
 	http.HandleFunc("/", handler)
-	http.ListenAndServe(":"+port, nil)
 	http.HandleFunc("/upload", uploadFile)
+	http.ListenAndServe(":"+port, nil)
 
 	//setupRoutes()
 
