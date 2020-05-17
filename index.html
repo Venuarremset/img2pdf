@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>images2pdf App</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<div>
+  <!-- <form method="post" action="http://httpbin.org/post"> -->
+  <!-- not using action=.. posts on same host -->
+  <form action="http://localhost:8480/upload" method="post" enctype="multipart/form-data">
+    <label for="files">Select multiple image files:</label>
+    <input type="file" id="files" name="myFile" multiple><br><br>
+    <input type="submit" Value="Submit">
+  </form> 
+</div>
+
+</body>
+</html>
