@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"text/template"
 
 	"github.com/jung-kurt/gofpdf"
 )
@@ -58,10 +59,23 @@ func setupRoutes() {
 	http.HandleFunc("/upload", uploadFile)
 	server.ListenAndServe()
 }
+func handler(w http.ResponseWriter, r *http.Request) {
+	myTemplate.ExecuteTemplate(w, "index.html", nil)
+}
+
+var myTemplate *template.Template
 
 func main() {
+	port := os.Getenv("PORT")
+
+	if port == "" {
+		log.Fatal("$PORT must be set")
+	}
 	fmt.Println("Hello World")
-	go setupRoutes()
+	myTemplate = template.Must(template.ParseGlob("index.html"))
+	http.HandleFunc("/", handler)
+	http.ListenAndServe("port", nil)
+	setupRoutes()
 
 	f, err := os.Open("image.png") //opening a file with os package
 	if err != nil {
